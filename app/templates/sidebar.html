@@ -1,0 +1,626 @@
+{% load static %} {% load has_group %}
+
+<div class="sidebar close">
+  <button class="logo-details">
+    <i class="bx bx-menu"></i>
+    <span class="logo_name">TLU</span>
+  </button>
+
+  {% if user.is_authenticated %} {% if request.user|has_group:"student" %}
+  <ul class="nav-links">
+    <li>
+      <a href="{% url 'home' %}">
+        <i class="bx bx-grid-alt"></i>
+        <span class="link_name">Trang chủ</span>
+      </a>
+      <ul class="sub-menu blank">
+        <li><a class="link_name" href="{% url 'home' %}">Trang chủ</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a href="{% url 'course_registration' %}">
+        <i class="bx bx-pie-chart-alt-2"></i>
+        <span class="link_name">Đăng ký học</span>
+      </a>
+      <ul class="sub-menu blank">
+        <li>
+          <a class="link_name" href="{% url 'course_registration' %}"
+            >Đăng ký học</a
+          >
+        </li>
+      </ul>
+    </li>
+
+    <li>
+      <a href="{% url 'student' request.user.id %}">
+        <i class="bx bx-compass"></i>
+        <span class="link_name">Info</span>
+      </a>
+      <ul class="sub-menu blank">
+        <li>
+          <a class="link_name" href="{% url 'student' request.user.id %}"
+            >Thông tin cá nhân</a
+          >
+        </li>
+      </ul>
+    </li>
+
+    <li>
+      <div class="icon-link">
+        <a href="#">
+          <i class="bx bx-cog"></i>
+          <span class="link_name">Setting</span>
+        </a>
+        <i class="bx bxs-chevron-down arrow"></i>
+      </div>
+      <ul class="sub-menu">
+        <li><a class="link_name" href="{% url 'update_user' %}">Setting</a></li>
+        <li><a href="{% url 'update_user' %}">Cập nhật thông tin</a></li>
+        <li><a href="{% url 'change_password' %}">Đổi mật khẩu</a></li>
+      </ul>
+    </li>
+    <li>
+      {% if request.user.is_authenticated %}
+      <div class="profile-details">
+        <div class="profile-content">
+          <a href="{% url 'logout' %}">
+            <img src="{{request.user.avatar.url}}" alt="avatar" />
+          </a>
+        </div>
+        <div class="name-job">
+          <div class="job">{{request.user.id}}</div>
+          <div class="profile_name">
+            {{request.user.first_name}} {{request.user.last_name}}
+          </div>
+        </div>
+        <a href="{% url 'logout' %}">
+          <i class="bx bx-log-out"></i>
+        </a>
+      </div>
+      {% else %}
+      <a href="{% url 'login' %}" class="profile-details">
+        <div class="profile-content">
+          <img src="{% static 'images/avatar.svg' %}" alt="avatar" />
+        </div>
+        <div class="name-job cursor-pointer">
+          <p class="profile_name">Login</p>
+        </div>
+        <i class=""></i>
+      </a>
+      {% endif %}
+    </li>
+  </ul>
+
+  {% elif request.user|has_group:"teacher" %}
+  <ul class="nav-links">
+    <li>
+      <a href="{% url 'home' %}">
+        <i class="bx bx-grid-alt"></i>
+        <span class="link_name">Trang chủ</span>
+      </a>
+      <ul class="sub-menu blank">
+        <li><a class="link_name" href="{% url 'home' %}">Trang chủ</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <div class="icon-link">
+        <a href="{% url 'courses' %}">
+          <i class="bx bx-book-alt"></i>
+          <span class="link_name">Lớp</span>
+        </a>
+        <i class="bx bxs-chevron-down arrow"></i>
+      </div>
+      <ul class="sub-menu">
+        <li>
+          <a class="link_name" href="{% url 'courses' %}">Danh sách lớp</a>
+        </li>
+        <li><a href="{% url 'create_course' %}">Tạo lớp mới</a></li>
+        <li><a href="#">Điểm danh</a></li>
+        <li><a href="#">Tổng kết</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a href="{% url 'attendance' %}">
+        <i class="bx bx-line-chart"></i>
+        <span class="link_name">Điểm danh</span>
+      </a>
+      <ul class="sub-menu blank">
+        <li>
+          <a class="link_name" href="{% url 'attendance' %}">Điểm danh</a>
+        </li>
+      </ul>
+    </li>
+
+    <li>
+      <a href="{% url 'student' request.user.id %}">
+        <i class="bx bx-compass"></i>
+        <span class="link_name">Info</span>
+      </a>
+      <ul class="sub-menu blank">
+        <li>
+          <a class="link_name" href="{% url 'student' request.user.id %}"
+            >Thông tin cá nhân</a
+          >
+        </li>
+      </ul>
+    </li>
+
+    <li>
+      <div class="icon-link">
+        <a href="#">
+          <i class="bx bx-cog"></i>
+          <span class="link_name">Setting</span>
+        </a>
+        <i class="bx bxs-chevron-down arrow"></i>
+      </div>
+      <ul class="sub-menu">
+        <li><a class="link_name" href="{% url 'update_user' %}">Setting</a></li>
+        <li><a href="{% url 'update_user' %}">Cập nhật thông tin</a></li>
+        <li><a href="{% url 'change_password' %}">Đổi mật khẩu</a></li>
+      </ul>
+    </li>
+    <li>
+      {% if request.user.is_authenticated %}
+      <div class="profile-details">
+        <div class="profile-content">
+          <a href="{% url 'logout' %}">
+            <img src="{{request.user.avatar.url}}" alt="avatar" />
+          </a>
+        </div>
+        <div class="name-job">
+          <div class="job">{{request.user.id}}</div>
+          <div class="profile_name">
+            {{request.user.first_name}} {{request.user.last_name}}
+          </div>
+        </div>
+        <a href="{% url 'logout' %}">
+          <i class="bx bx-log-out"></i>
+        </a>
+      </div>
+      {% else %}
+      <a href="{% url 'login' %}" class="profile-details">
+        <div class="profile-content">
+          <img src="{% static 'images/avatar.svg' %}" alt="avatar" />
+        </div>
+        <div class="name-job cursor-pointer">
+          <p class="profile_name">Login</p>
+        </div>
+        <i class=""></i>
+      </a>
+      {% endif %}
+    </li>
+  </ul>
+
+  {% elif request.user|has_group:"employee" %}
+  <ul class="nav-links">
+    <li>
+      <a href="{% url 'home' %}">
+        <i class="bx bx-grid-alt"></i>
+        <span class="link_name">Trang chủ</span>
+      </a>
+      <ul class="sub-menu blank">
+        <li><a class="link_name" href="{% url 'home' %}">Trang chủ</a></li>
+      </ul>
+    </li>
+    <li>
+      <div class="icon-link">
+        <a href="">
+          <i class="bx bx-collection"></i>
+          <span class="link_name">Danh sách</span>
+        </a>
+        <i class="bx bxs-chevron-down arrow"></i>
+      </div>
+      <ul class="sub-menu">
+        <li><a class="link_name" href="">Danh sách</a></li>
+        <li><a href="{% url 'students' %}">Sinh viên</a></li>
+        <li><a href="{% url 'teachers' %}">Giáo viên</a></li>
+        <li><a href="{% url 'employees' %}">Nhân viên</a></li>
+      </ul>
+    </li>
+    <li>
+      <div class="icon-link">
+        <a href="{% url 'courses' %}">
+          <i class="bx bx-book-alt"></i>
+          <span class="link_name">Lớp</span>
+        </a>
+        <i class="bx bxs-chevron-down arrow"></i>
+      </div>
+      <ul class="sub-menu">
+        <li>
+          <a class="link_name" href="{% url 'courses' %}">Danh sách lớp</a>
+        </li>
+        <li><a href="{% url 'create_course' %}">Tạo lớp mới</a></li>
+        <li><a href="#">Điểm danh</a></li>
+        <li><a href="#">Tổng kết</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <div class="icon-link">
+        <a href="#">
+          <i class="bx bx-plug"></i>
+          <span class="link_name">Quản lý</span>
+        </a>
+        <i class="bx bxs-chevron-down arrow"></i>
+      </div>
+      <ul class="sub-menu">
+        <li><a class="link_name" href="#">Quản lý</a></li>
+        <li><a href="{% url 'add_students' %}">Thêm sinh viên</a></li>
+        <li><a href="{% url 'add_teachers' %}">Thêm giáo viên</a></li>
+        <li><a href="{% url 'add_employees' %}">Thêm nhân viên</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="{% url 'student' request.user.id %}">
+        <i class="bx bx-compass"></i>
+        <span class="link_name">Info</span>
+      </a>
+      <ul class="sub-menu blank">
+        <li>
+          <a class="link_name" href="{% url 'student' request.user.id %}"
+            >Thông tin cá nhân</a
+          >
+        </li>
+      </ul>
+    </li>
+
+    <li>
+      <div class="icon-link">
+        <a href="#">
+          <i class="bx bx-cog"></i>
+          <span class="link_name">Setting</span>
+        </a>
+        <i class="bx bxs-chevron-down arrow"></i>
+      </div>
+      <ul class="sub-menu">
+        <li><a class="link_name" href="{% url 'update_user' %}">Setting</a></li>
+        <li><a href="{% url 'update_user' %}">Cập nhật thông tin</a></li>
+        <li><a href="{% url 'change_password' %}">Đổi mật khẩu</a></li>
+      </ul>
+    </li>
+    <li>
+      {% if request.user.is_authenticated %}
+      <div class="profile-details">
+        <div class="profile-content">
+          <a href="{% url 'logout' %}">
+            <img src="{{request.user.avatar.url}}" alt="avatar" />
+          </a>
+        </div>
+        <div class="name-job">
+          <div class="job">{{request.user.id}}</div>
+          <div class="profile_name">
+            {{request.user.first_name}} {{request.user.last_name}}
+          </div>
+        </div>
+        <a href="{% url 'logout' %}">
+          <i class="bx bx-log-out"></i>
+        </a>
+      </div>
+      {% else %}
+      <a href="{% url 'login' %}" class="profile-details">
+        <div class="profile-content">
+          <img src="{% static 'images/avatar.svg' %}" alt="avatar" />
+        </div>
+        <div class="name-job cursor-pointer">
+          <p class="profile_name">Login</p>
+        </div>
+        <i class=""></i>
+      </a>
+      {% endif %}
+    </li>
+  </ul>
+
+  {% else %}
+  <ul class="nav-links">
+    <li>
+      <a href="{% url 'home' %}">
+        <i class="bx bx-grid-alt"></i>
+        <span class="link_name">Trang chủ</span>
+      </a>
+      <ul class="sub-menu blank">
+        <li><a class="link_name" href="{% url 'home' %}">Trang chủ</a></li>
+      </ul>
+    </li>
+    <li>
+      <div class="icon-link">
+        <a href="">
+          <i class="bx bx-collection"></i>
+          <span class="link_name">Danh sách</span>
+        </a>
+        <i class="bx bxs-chevron-down arrow"></i>
+      </div>
+      <ul class="sub-menu">
+        <li><a class="link_name" href="">Danh sách</a></li>
+        <li><a href="{% url 'students' %}">Sinh viên</a></li>
+        <li><a href="{% url 'teachers' %}">Giáo viên</a></li>
+        <li><a href="{% url 'employees' %}">Nhân viên</a></li>
+      </ul>
+    </li>
+    <li>
+      <div class="icon-link">
+        <a href="{% url 'courses' %}">
+          <i class="bx bx-book-alt"></i>
+          <span class="link_name">Lớp</span>
+        </a>
+        <i class="bx bxs-chevron-down arrow"></i>
+      </div>
+      <ul class="sub-menu">
+        <li>
+          <a class="link_name" href="{% url 'courses' %}">Danh sách lớp</a>
+        </li>
+        <li><a href="{% url 'create_course' %}">Tạo lớp mới</a></li>
+        <li><a href="#">Điểm danh</a></li>
+        <li><a href="#">Tổng kết</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="{% url 'course_registration' %}">
+        <i class="bx bx-pie-chart-alt-2"></i>
+        <span class="link_name">Đăng ký học</span>
+      </a>
+      <ul class="sub-menu blank">
+        <li>
+          <a class="link_name" href="{% url 'course_registration' %}"
+            >Đăng ký học</a
+          >
+        </li>
+      </ul>
+    </li>
+    <li>
+      <a href="{% url 'attendance' %}">
+        <i class="bx bx-line-chart"></i>
+        <span class="link_name">Điểm danh</span>
+      </a>
+      <ul class="sub-menu blank">
+        <li>
+          <a class="link_name" href="{% url 'attendance' %}">Điểm danh</a>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <div class="icon-link">
+        <a href="#">
+          <i class="bx bx-plug"></i>
+          <span class="link_name">Quản lý</span>
+        </a>
+        <i class="bx bxs-chevron-down arrow"></i>
+      </div>
+      <ul class="sub-menu">
+        <li><a class="link_name" href="#">Quản lý</a></li>
+        <li><a href="{% url 'add_students' %}">Thêm sinh viên</a></li>
+        <li><a href="{% url 'add_teachers' %}">Thêm giáo viên</a></li>
+        <li><a href="{% url 'add_employees' %}">Thêm nhân viên</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="{% url 'student' request.user.id %}">
+        <i class="bx bx-compass"></i>
+        <span class="link_name">Info</span>
+      </a>
+      <ul class="sub-menu blank">
+        <li>
+          <a class="link_name" href="{% url 'student' request.user.id %}"
+            >Thông tin cá nhân</a
+          >
+        </li>
+      </ul>
+    </li>
+    <li>
+      <a href="#">
+        <i class="bx bx-history"></i>
+        <span class="link_name">History</span>
+      </a>
+      <ul class="sub-menu blank">
+        <li><a class="link_name" href="#">History</a></li>
+      </ul>
+    </li>
+    <li>
+      <div class="icon-link">
+        <a href="#">
+          <i class="bx bx-cog"></i>
+          <span class="link_name">Setting</span>
+        </a>
+        <i class="bx bxs-chevron-down arrow"></i>
+      </div>
+      <ul class="sub-menu">
+        <li><a class="link_name" href="{% url 'update_user' %}">Setting</a></li>
+        <li><a href="{% url 'update_user' %}">Cập nhật thông tin</a></li>
+        <li><a href="{% url 'change_password' %}">Đổi mật khẩu</a></li>
+      </ul>
+    </li>
+    <li>
+      {% if request.user.is_authenticated %}
+      <div class="profile-details">
+        <div class="profile-content">
+          <a href="{% url 'logout' %}">
+            <img src="{{request.user.avatar.url}}" alt="avatar" />
+          </a>
+        </div>
+        <div class="name-job">
+          <div class="job">{{request.user.id}}</div>
+          <div class="profile_name">
+            {{request.user.first_name}} {{request.user.last_name}}
+          </div>
+        </div>
+        <a href="{% url 'logout' %}">
+          <i class="bx bx-log-out"></i>
+        </a>
+      </div>
+      {% else %}
+      <a href="{% url 'login' %}" class="profile-details">
+        <div class="profile-content">
+          <img src="{% static 'images/avatar.svg' %}" alt="avatar" />
+        </div>
+        <div class="name-job cursor-pointer">
+          <p class="profile_name">Login</p>
+        </div>
+        <i class=""></i>
+      </a>
+      {% endif %}
+    </li>
+  </ul>
+  {% endif %} {% else %}
+  <ul class="nav-links">
+    <li>
+      <a href="{% url 'home' %}">
+        <i class="bx bx-grid-alt"></i>
+        <span class="link_name">Trang chủ</span>
+      </a>
+      <ul class="sub-menu blank">
+        <li><a class="link_name" href="{% url 'home' %}">Trang chủ</a></li>
+      </ul>
+    </li>
+  </ul>
+  {% endif %}
+  <ul class="nav-links">
+    <li>
+      <a href="{% url 'home' %}">
+        <i class="bx bx-grid-alt"></i>
+        <span class="link_name">Trang chủ</span>
+      </a>
+      <ul class="sub-menu blank">
+        <li><a class="link_name" href="{% url 'home' %}">Trang chủ</a></li>
+      </ul>
+    </li>
+    <li>
+      <div class="icon-link">
+        <a href="">
+          <i class="bx bx-collection"></i>
+          <span class="link_name">Danh sách</span>
+        </a>
+        <i class="bx bxs-chevron-down arrow"></i>
+      </div>
+      <ul class="sub-menu">
+        <li><a class="link_name" href="">Danh sách</a></li>
+        <li><a href="{% url 'students' %}">Sinh viên</a></li>
+        <li><a href="{% url 'teachers' %}">Giáo viên</a></li>
+        <li><a href="{% url 'employees' %}">Nhân viên</a></li>
+      </ul>
+    </li>
+    <li>
+      <div class="icon-link">
+        <a href="{% url 'courses' %}">
+          <i class="bx bx-book-alt"></i>
+          <span class="link_name">Lớp</span>
+        </a>
+        <i class="bx bxs-chevron-down arrow"></i>
+      </div>
+      <ul class="sub-menu">
+        <li>
+          <a class="link_name" href="{% url 'courses' %}">Danh sách lớp</a>
+        </li>
+        <li><a href="{% url 'create_course' %}">Tạo lớp mới</a></li>
+        <li><a href="#">Điểm danh</a></li>
+        <li><a href="#">Tổng kết</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="{% url 'course_registration' %}">
+        <i class="bx bx-pie-chart-alt-2"></i>
+        <span class="link_name">Đăng ký học</span>
+      </a>
+      <ul class="sub-menu blank">
+        <li>
+          <a class="link_name" href="{% url 'course_registration' %}"
+            >Đăng ký học</a
+          >
+        </li>
+      </ul>
+    </li>
+    <li>
+      <a href="{% url 'attendance' %}">
+        <i class="bx bx-line-chart"></i>
+        <span class="link_name">Điểm danh</span>
+      </a>
+      <ul class="sub-menu blank">
+        <li>
+          <a class="link_name" href="{% url 'attendance' %}">Điểm danh</a>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <div class="icon-link">
+        <a href="#">
+          <i class="bx bx-plug"></i>
+          <span class="link_name">Quản lý</span>
+        </a>
+        <i class="bx bxs-chevron-down arrow"></i>
+      </div>
+      <ul class="sub-menu">
+        <li><a class="link_name" href="#">Quản lý</a></li>
+        <li><a href="{% url 'add_students' %}">Thêm sinh viên</a></li>
+        <li><a href="{% url 'add_teachers' %}">Thêm giáo viên</a></li>
+        <li><a href="{% url 'add_employees' %}">Thêm nhân viên</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="{% url 'student' request.user.id %}">
+        <i class="bx bx-compass"></i>
+        <span class="link_name">Info</span>
+      </a>
+      <ul class="sub-menu blank">
+        <li>
+          <a class="link_name" href="{% url 'student' request.user.id %}"
+            >Thông tin cá nhân</a
+          >
+        </li>
+      </ul>
+    </li>
+    <li>
+      <a href="#">
+        <i class="bx bx-history"></i>
+        <span class="link_name">History</span>
+      </a>
+      <ul class="sub-menu blank">
+        <li><a class="link_name" href="#">History</a></li>
+      </ul>
+    </li>
+    <li>
+      <div class="icon-link">
+        <a href="#">
+          <i class="bx bx-cog"></i>
+          <span class="link_name">Setting</span>
+        </a>
+        <i class="bx bxs-chevron-down arrow"></i>
+      </div>
+      <ul class="sub-menu">
+        <li><a class="link_name" href="{% url 'update_user' %}">Setting</a></li>
+        <li><a href="{% url 'update_user' %}">Cập nhật thông tin</a></li>
+        <li><a href="{% url 'change_password' %}">Đổi mật khẩu</a></li>
+      </ul>
+    </li>
+    <li>
+      {% if request.user.is_authenticated %}
+      <div class="profile-details">
+        <div class="profile-content">
+          <a href="{% url 'logout' %}">
+            <img src="{{request.user.avatar.url}}" alt="avatar" />
+          </a>
+        </div>
+        <div class="name-job">
+          <div class="job">{{request.user.id}}</div>
+          <div class="profile_name">
+            {{request.user.first_name}} {{request.user.last_name}}
+          </div>
+        </div>
+        <a href="{% url 'logout' %}">
+          <i class="bx bx-log-out"></i>
+        </a>
+      </div>
+      {% else %}
+      <a href="{% url 'login' %}" class="profile-details">
+        <div class="profile-content">
+          <img src="{% static 'images/avatar.svg' %}" alt="avatar" />
+        </div>
+        <div class="name-job cursor-pointer">
+          <p class="profile_name">Login</p>
+        </div>
+        <i class=""></i>
+      </a>
+      {% endif %}
+    </li>
+  </ul>
+</div>

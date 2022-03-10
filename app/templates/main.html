@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.js"
+      integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      href="{% static 'styles/main.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'styles/fontawesome/css/all.css' %}"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Thăng Long University</title>
+  </head>
+
+  <body>
+    {% include 'sidebar.html' %} {% block content %} {% endblock content %}
+    <script src="{% static 'js/script.js' %}"></script>
+  </body>
+</html>
